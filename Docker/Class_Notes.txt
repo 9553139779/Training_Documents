@@ -283,31 +283,35 @@ Day 33: 16th Sep. 2024
 			
 			
 		User_Login/SignIn Services :::
-		
+Micro service is based on 		
 		3 - Tier Application Layers :::
 		
 			Front-End - User Interface 
 			
 			Application Layer - Business Logic 
 			
-			Back-End Layer - DataBase 
-			
+			Back-End Layer - Database
+Every container has its own spacer.
 			
 		docker volume :::
 			
 			- Is used to create permanent Volumes that can be attached to any container to maintain the persistant data accross the Applications running thru containers. 
 			
 			
-		docker volume create <vol_name>
+		docker volume create <vol_name> = docker volume create volume_12
 		
-		docker volume inspect <vol_name>
+		docker volume inspect <vol_name> = this is to inspect where the volume has been created along with the date and Time,Inspect can be used for not only volume but also to know the information about the container
+Any Volume that you create has a _data folder in it.
+
 		
-		docker run -it centos bash 
+		docker run -it centos bash= this is use to create a volume and run it
+
 		
-		docker run -it --mount source=sa-wd-devops-vol1,destination=/sa-wd-devops-vol1 centos bash
-		
-	
-	
+		docker run -it --mount source=sa-wd-devops-vol1,destination=/sa-wd-devops-vol1 centos bash = Attach the volume to the Container and Run it in the Bash mode,Mount is Used to attach the volume to the container,
+		Whenever the container is creating some data it is stored in the Container, if the data is present in that volume the data is present in the Volume, At any Point of time you can loose the Container but not Data.
+Staeful Application means the input can also be also be This can be Created in that Volume.
+Volume can be shared from one Container to Another Container and even if the Container is Deleted the data is Still Present in the Volume.
+
 	Create Container Images ::::
 	
 	

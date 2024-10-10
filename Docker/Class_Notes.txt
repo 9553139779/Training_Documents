@@ -307,13 +307,31 @@ Any Volume that you create has a _data folder in it.
 		docker run -it centos bash= this is use to create a volume and run it
 
 		
-		docker run -it --mount source=sa-wd-devops-vol1,destination=/sa-wd-devops-vol1 centos bash = Attach the volume to the Container and Run it in the Bash mode,Mount is Used to attach the volume to the container,
+		docker run -it --mount source=sa-wd-devops-vol1,destination=/sa-wd-devops-vol1 centos bash = Attach the volume to the Container and Run it in the Bash mode,Mount is Used to attach the volume to the container, Source Volume is the Host Volume wheras the Destination is the Volume Created in the Container./=this denotes the Home Directory.\
+A small directory can be created in each Container and Volume can be Attached to the Directory.
+Source is The Host Volume destination is the Container Volume.
+
 		Whenever the container is creating some data it is stored in the Container, if the data is present in that volume the data is present in the Volume, At any Point of time you can loose the Container but not Data.
 Staeful Application means the input can also be also be This can be Created in that Volume.
 Volume can be shared from one Container to Another Container and even if the Container is Deleted the data is Still Present in the Volume.
+Source is the Container and Destination is the Volume.
+Same Volume can be Attached to different number of Containers
+Delete the Host Volume rm -rf <Docker_Volume>/* you can delete the Volume.
+Destination Volume name can be anything.
+Destination is the directory name.
+Deleting a Volume doesn't delete your Container.
 
 	Create Container Images ::::
-	
+Images can be Created Using Docker Commit and Docker Build Respectively.
+You can Run an Application Build inside an Container.
+You can get the Source Code,Build and Run it inside the Container.
+You can  Perform Build and Create the Artifacts and If a Volume is Attatched to the Container Then these Artifacts can be Stored inside the Host Volume.
+At any Point of Time you can start the Container and Log into that Container
+docker start <container_id> = this is to start the Container
+docker exec <container_id> = This is to go inside the Container and Perform Certain Build Actions
+Containers are Not Portable that is these cannot be Copied from one host Machine to Another, So if i need to use the Container in the other Virtual Machine we create the Image of the Respected container that we use and Download the Image into the Other Virtual Machine.
+To move the Image to the Other V.M we need to Publish the Image first to the Local Repository
+
 	
 		docker commit ::
 		
@@ -324,7 +342,11 @@ Volume can be shared from one Container to Another Container and even if the Con
 				docker commit <existing_container_id> <dockerhub_repo_name>/New_Image_Name>:<tag_Name>
 
 			Eg.: 
-				docker commit 6070980df5f2 loksaieta/sa-javaappbuildimg:v1.0
+				docker commit 6070980df5f2 loksaieta/sa-javaappbuildimg:v1.0 = This is to Create the Version of the Image
+You should always login with the Container Image.
+If we do not Create a Repository name it will just create an Image in your Local Machine
+So you need to Include a Repository
+
 		
 			
 		
@@ -333,6 +355,14 @@ Volume can be shared from one Container to Another Container and even if the Con
 			- To create a new Container Image based on the Dockerfile reference.
 			- Dockerfile composed of Instructions to Create Docker Container Images
 			- Application Developers create the Dockerfile and update in the Source Code Repository. 
+To create an Image from the Scratch along with the required dependencies we need a Docker file and We need to write the Docker File.
+Docker file are used to Created by the Application Build.
+Dockerfile name should be same and it is case Sensitive
+FROM always denotes the Base Image
+Whenever we create a Container there is a Base Image.
+RUN is use to run some Packages
+
+
 			
 		
 		vi Dockerfile 
@@ -361,12 +391,15 @@ Volume can be shared from one Container to Another Container and even if the Con
 			ADD 									# To Copy the file from Host Volume as well as from URL
 			ENV 									# To define the Environment Variable 
 			ARG 									# To pass Arguements to the Steps in Dockerfile 
-			EXPOSE									# To Define the Container Port 
-			WORKDIR									# To set the current working directory within the Container 
+			EXPOSE									# To Define the Container Port or to expose your post for the Virtual Machine or the User to Connect
+
+			WORKDIR(Working Directory)								# To set the current working directory within the Container 
 			CMD										# To set the default start-up command to the container 
 													  This Command can be changed at run-time.
 			ENTRYPOINT								# To set the default start-up command to the container 
-													  This Command cannot be changed at run-time.			
+													  This Command cannot be changed at run-time.	
+Docker file will be maintained in the Source Code Repository.
+
 			
 			
 			
@@ -376,7 +409,7 @@ Volume can be shared from one Container to Another Container and even if the Con
 			COPY ./target/*.war /usr/local/tomcat/webapps
 			EXPOSE 8080		
 			
-			docker build -t loksaieta/sa-webappimg:v1.0 .			# run this command from the Dockerfile location.
+			docker build -t loksaieta/sa-webappimg:v1.0 .			# . this command is used to run this command from the Dockerfile location.
 			docker run -it -p 8089:8080 loksaieta/sa-webappimg:v1.0
 			
 		

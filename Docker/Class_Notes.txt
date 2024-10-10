@@ -411,7 +411,8 @@ Docker file will be maintained in the Source Code Repository.
 			
 			docker build -t loksaieta/sa-webappimg:v1.0 .			# . this command is used to run this command from the Dockerfile location.
 			docker run -it -p 8089:8080 loksaieta/sa-webappimg:v1.0
-			
+			It is a Process of Deploying a Application into the Container
+
 		
 
 #######################

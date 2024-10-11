@@ -402,7 +402,7 @@ Docker file will be maintained in the Source Code Repository.
 
 			
 			
-			
+			usermod -aG docker devopsadmin
 			Dockerfile :::
 			
 			FROM tomcat:8.0

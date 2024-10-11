@@ -306,7 +306,7 @@ Day 21: 23rd Aug. 2024
 			Commit the Code to Source Code Repository (Github/Az-Repo)
 						|
 						|
-			Automated Build 
+			Automated Build(Jenkins) 
 						|
 						|
 			Automated Code Promotion to Test Environment
@@ -321,7 +321,7 @@ Day 21: 23rd Aug. 2024
 			Production Testing 
 						|
 						|
-			Continuous Monitoring 
+			Continuous Monitoring(Grafana)
 						|
 						|
 			Feedback from Customers/Business Users
